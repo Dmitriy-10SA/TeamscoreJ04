@@ -42,6 +42,8 @@ public class Transliterator {
             return null;
         }
         StringBuilder latinText = new StringBuilder();
+        //проходим каждый символ, ищем его в map<кириллица, латиница>
+        //если нашли - переводим, иначе оставляем символ как есть
         for (char ch : cyrillicText.toCharArray()) {
             String latin = CYRILLIC_LATIN.getOrDefault(ch, null);
             latinText.append(latin != null ? latin : ch);
@@ -60,6 +62,8 @@ public class Transliterator {
             return null;
         }
         StringBuilder cyrillicText = new StringBuilder();
+        //проходим всю строку, при каждом проходе берем подстроки [1,3] по длине (shh самый длинный символ)
+        //ищем подстроки в map<латиница, кириллица>, если нашли - переводим, иначе оставляем как есть
         for (int i = 0; i < latinText.length(); ) {
             boolean found = false;
             for (int len = 3; len >= 1; len--) {
